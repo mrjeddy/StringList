@@ -1,6 +1,9 @@
 ﻿#include <iostream>
 #include <string>
 
+#include <vector>
+#include <algorithm>
+
 using namespace std;
 
 class StringList
@@ -119,11 +122,24 @@ StringList operator+(const StringList& sl1, const StringList& sl2) {
 string stringList[] = { "Marinate", "the", "nether", "rod", "In", "the", "squish", "mitten" };
 const char* charList[] = { "somebody", "once", "told", "me", "the", "world", "is", "gonna", "roll", "me" };
 
+string getLow(string s) {
+    for (int i = 0; i < s.length(); i++) {
+        s[i] = tolower(s[i]);
+    }
+    return s;
+}
+bool compare(const std::string& left, const std::string& right)
+{
+    return getLow(left) > getLow(right);
+}
+
+
 int main()
 {
     int arrLenght = sizeof(stringList) / sizeof(stringList[0]);
     int chLenght = sizeof(charList) / sizeof(charList[0]);
 
+    cout << "by StringList:" << endl;
     StringList sl = StringList(arrLenght, stringList);
     StringList mysl(sl);
     StringList chsl = StringList(chLenght, charList);
@@ -133,12 +149,35 @@ int main()
     string word = "charlie";
     mysl += word;
     mysl += "kilo";
+    mysl += "i am";
+    mysl += "albanian";
+    mysl += "take";
+    mysl += "me";
+    mysl += "toAmerica";
     StringList moved(move(mysl));
     mysl = sl + moved;
     mysl.sortList();
     mysl.getInputed();
 
-
+    cout << "by vector:" << endl;
+    vector<string> stringVector;
+    for (int i = 0; i < arrLenght; i++)
+    {
+        stringVector.push_back(stringList[i]);
+    }
+    for (int i = 0; i < chLenght; i++)
+    {
+        stringVector.push_back(charList[i]);
+    }
+    cout << "type a word:" << endl;
+    string inp;
+    getline(cin, inp);
+    stringVector.push_back(inp);
+    cout << "added to vector" << endl << endl;
+    std::sort(begin(stringVector), end(stringVector), compare);
+    for (string& value : stringVector) {
+        cout << value << endl;
+    }
 
     string line;
     getline(cin, line);
