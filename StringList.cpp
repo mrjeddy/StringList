@@ -82,9 +82,9 @@ public:
         int i = first, j = last;
         string tmp, x = lowerCase(a[(first + last) / 2]);
         do {
-            while (lowerCase(a[i]) < x)
+            while (lowerCase(a[i]) > x)
                 i++;
-            while (lowerCase(a[j]) > x)
+            while (lowerCase(a[j]) < x)
                 j--;
             if (i <= j)
             {
